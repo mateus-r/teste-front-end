@@ -1,9 +1,10 @@
+import { SearchOutlined } from "@ant-design/icons";
 import { Col, message, Row } from "antd";
 import Search from "antd/lib/input/Search";
 import * as React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { Content } from "../../components/Content";
-import './style.css';
+import './styles.less';
 
 export const MainPage = () => {
 
@@ -28,13 +29,16 @@ export const MainPage = () => {
 
     return (
         <>
-            <Row justify="center" align="middle" className={collapsed || location.pathname !== '/' ? 'sb-animation' : 'sb-container'}>
+            <Row
+                justify="center"
+                align="middle"
+                className={collapsed || location.pathname !== '/' ? 'sb-animation sb-shadow' : 'sb-container'}>
                 <Col xs={20} md={12} style={{maxWidth: '550px'}}>
                     <Search
                         placeholder="Pesquisar"
                         aria-label="campo de pesquisa"
                         onChange={e => setSearchText(e.target.value)}
-                        enterButton="Buscar"
+                        // enterButton={<SearchOutlined />}
                         onSearch={() => handleOnClickSearch()}
                     />
                 </Col>

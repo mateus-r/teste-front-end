@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { thumbnailApi } from '../../api';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { search, SearchListResponse } from './actions';
-import './styles.css';
+import './styles.less';
 
 export const SearchResults = () => {
 

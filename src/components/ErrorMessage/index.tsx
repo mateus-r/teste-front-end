@@ -1,7 +1,7 @@
 import { Typography } from "antd";
 import Paragraph from "antd/lib/typography/Paragraph";
 import * as React from "react";
-import './styles.css';
+import './styles.less';
 
 export const ErrorMessage = () => {
     return(

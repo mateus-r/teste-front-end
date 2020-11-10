@@ -1,7 +1,8 @@
 import React from 'react';
-import "antd/dist/antd.css";
+import "antd/dist/antd.less";
 import { MainPage } from './pages/MainPage';
 import { BrowserRouter } from 'react-router-dom';
+import './styles'
 
 function App() {
   return (

@@ -7,6 +7,7 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { loadDetails, VideoListResponse } from './actions';
+import './styles.less';
 
 export const VideoContent = () => {
 
@@ -39,13 +40,16 @@ export const VideoContent = () => {
             {
             result ?
                 <Row justify='center'  style={{marginTop: '24px'}}>
-                    <Col>
-                        <iframe src={`https://www.youtube.com/embed/${result.id}`}
-                            frameBorder='0'
-                            allow='autoplay; encrypted-media'
-                            allowFullScreen
-                            title={result.title}
-                        />
+                    <Col xs={22} sm={20} md={14}>
+                        <div className='video-container'>
+                            <iframe src={`https://www.youtube.com/embed/${result.id}`}
+                                frameBorder='0'
+                                allow='autoplay; encrypted-media'
+                                allowFullScreen
+                                title={result.title}
+                                className='video'
+                            />
+                        </div>
                         <Title level={2}>{result?.title}</Title>
                         <Row justify='space-between'>
                             <Col>
