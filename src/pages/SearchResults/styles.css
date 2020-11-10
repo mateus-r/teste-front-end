@@ -1,0 +1,14 @@
+.thumbnail {
+    object-fit: cover;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.thumbnail-container {
+    width: 100%;
+    padding-top: 56.25%;
+    position: relative;
+    overflow: hidden;
+}

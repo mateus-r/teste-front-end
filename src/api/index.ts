@@ -8,3 +8,7 @@ export const youtubeApi = axios.create({
         key: API_KEY
     }
 });
+
+export const thumbnailApi = axios.create({
+    baseURL: 'https://i.ytimg.com/vi',
+});

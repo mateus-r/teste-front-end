@@ -3,8 +3,9 @@
         height: 100vh;
     }
     to {
-        height: 48px;
+        height: 80px;
         padding-top: 24px;
+        padding-bottom: 24px;
     }
 }
 
