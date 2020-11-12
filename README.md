@@ -1,30 +1,19 @@
 # Teste front-end iCasei
 
-Projeto em desenvolvimento usando TypeScript e ReactJS.
+Projeto desenvolvido usando TypeScript e ReactJS.
 
-## Available Scripts
+Implementação de uma aplicação em ReactJS, usando TypeScript, Ant Design e LESS para consumir a YouTube Data API.
 
-In the project directory, you can run:
+## Instruções
+
+Na raíz do projeto, os seguintes comandos podem ser usados:
 
 ### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Executa em modo de desenvolvimento.\
+Abra [http://localhost:3000](http://localhost:3000) para visualizar no navegador.
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+"Compila" o projeto para produção.\
+O resultado pode ser visto na pasta 'build'.
