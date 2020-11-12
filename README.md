@@ -16,4 +16,4 @@ Abra [http://localhost:3000](http://localhost:3000) para visualizar no navegador
 ### `yarn build`
 
 "Compila" o projeto para produção.\
-O resultado pode ser visto na pasta 'build'.
+O resultado pode ser visto na pasta `build`.
