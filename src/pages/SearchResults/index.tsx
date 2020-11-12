@@ -127,7 +127,7 @@ export const SearchResults = () => {
                             <Row justify="center">
                                 <Spin spinning={loadingNextPage}>
                                     <Row justify="center" style={{padding: '24px'}}>
-                                        <Button onClick={() => handleNextPageSearch()}>Carregar mais</Button>
+                                        <Button onClick={() => handleNextPageSearch()} className='box-shadow' size='large'>Carregar mais</Button>
                                     </Row>
                                 </Spin>
                             </Row>
