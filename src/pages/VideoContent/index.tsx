@@ -1,4 +1,4 @@
-import { DislikeFilled, EyeFilled, LikeFilled } from '@ant-design/icons';
+import { DislikeFilled, EyeFilled, LikeFilled, LoadingOutlined } from '@ant-design/icons';
 import { Col, message, Row, Spin } from 'antd';
 import Text from 'antd/lib/typography/Text';
 import Title from 'antd/lib/typography/Title';
@@ -36,7 +36,7 @@ export const VideoContent = () => {
     }, [id]);
 
     return(
-        <Spin spinning={loading}>
+        <Spin spinning={loading} indicator={<LoadingOutlined style={{fontSize: '48px'}}/>}>
             {
             result ?
                 <Row justify='center'  style={{marginTop: '24px'}}>
@@ -50,14 +50,21 @@ export const VideoContent = () => {
                                 className='video'
                             />
                         </div>
-                        <Title level={2}>{result?.title}</Title>
+                        <Title level={2}>{result.title}</Title>
                         <Row justify='space-between'>
                             <Col>
-                                <Text>{result?.viewCount} visualizações • { moment(result?.publishedAt).format('ll')} </Text>
+                                <Text><EyeFilled /> {result.viewCount} visualizações • { moment(result.publishedAt).format('ll')} </Text>
                             </Col>
                             <Col>
-                                <EyeFilled />{result?.viewCount} <LikeFilled />{result?.likeCount} <DislikeFilled />{result?.dislikeCount}
+                                <LikeFilled />{result.likeCount}<DislikeFilled style={{paddingLeft: '1em'}}/>{result.dislikeCount}
                             </Col>
+                        </Row>
+                        <hr />
+                        <Row>
+                            <Title level={4}>{result.channelTitle}</Title>
+                        </Row>
+                        <Row>
+                            {result.description}
                         </Row>
                     </Col>
                 </Row>

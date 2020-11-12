@@ -1,14 +1,18 @@
-import { Typography } from "antd";
-import Paragraph from "antd/lib/typography/Paragraph";
+import { FrownOutlined } from "@ant-design/icons";
+import { Col, Row, Typography } from "antd";
+import Title from "antd/lib/typography/Title";
 import * as React from "react";
-import './styles.less';
 
 export const ErrorMessage = () => {
     return(
-        <Typography>
-            {/* <Title className='rotate-90-degree'>:(</Title> */}
-            <Paragraph>Não encontramos vídeos com o termo buscado.</Paragraph>
-            <Paragraph>Utilize outras palavras-chave.</Paragraph>
-        </Typography>
+        <Row justify='center' align='middle'>
+            <Col>
+                <Title><FrownOutlined /></Title>
+                <Typography>
+                    Não encontramos vídeos com o termo buscado.<br />
+                    Utilize outras palavras-chave.
+                </Typography>
+            </Col>
+        </Row>
     );
 }

@@ -1,11 +1,14 @@
-import { Col, message, Row, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Button, Col, message, Row, Spin } from 'antd';
 import Text from 'antd/lib/typography/Text';
+import Title from 'antd/lib/typography/Title';
 import * as React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { thumbnailApi } from '../../api';
 import { ErrorMessage } from '../../components/ErrorMessage';
-import { search, SearchListResponse } from './actions';
+import { search, SearchListResponse, SearchResult } from './actions';
 import './styles.less';
+
 
 export const SearchResults = () => {
 
@@ -16,76 +19,91 @@ export const SearchResults = () => {
 
     const [loading, setLoading] = React.useState<boolean>(false);
     const [loadingNextPage, setLoadingNextPage] = React.useState<boolean>(false);
-    const [result, setResult] = React.useState<SearchListResponse>();
+    const [searchResponse, setSearchResponse] = React.useState<SearchListResponse>();
+    const [searchResults, setSearchResults] = React.useState<SearchResult[]>([]);
+    const [lastQ, setLastQ] = React.useState<string>("");
+
+    // React.useEffect(() => {
+    //     document.querySelector('.content-container')?.addEventListener("scroll", () => handleScroll());
+    // }, []);
 
     React.useEffect(() => {
+        if(q !== lastQ) {
+            handleSearch();
+        }
+    }, [q]);
+
+    const handleSearch = () => {
+        setSearchResults([]);
         setLoading(true);
+        setLastQ(q);
         search(q)
         .then((res) => {
-            setResult(res);
+            setSearchResponse(res);
+            setSearchResults(res.items);
         })
         .catch((err) => {
-            message.error("Erro");
+            console.log(err);
+            message.error("Erro ao carregar resultados da pesquisa");
         })
         .finally(() => {
             setLoading(false);
-        })
-    }, [q]);
+        });
+    }
 
-    const handleNextPage = () => {
+
+    const handleNextPageSearch = () => {
         setLoadingNextPage(true);
-        search(q, result?.nextPageToken)
+        search(q, searchResponse!.nextPageToken)
         .then((res) => {
-            setResult(res);
+            setSearchResponse(res);
+            setSearchResults([...searchResults, ...res.items]);
         })
         .catch((err) => {
-            message.error("Erro");
+            console.log(err);
+            message.error("Erro ao carregar resultados da pesquisa");
         })
         .finally(() => {
             setLoadingNextPage(false);
         })
     }
 
+    // const handleScroll = () => {
+    //     console.log(searchResponse?.nextPageToken)
+    //     if(searchResponse?.nextPageToken
+    //         && !loadingNextPage
+    //         && isInViewport(document.getElementById('loadMore'))) {
+    //         handleNextPageSearch();
+    //     }
+    // }
+
     const displayThumb = (videoId: string, alt: string) => {
         let imgSize: string;
         const img = new Image();
         img.className = 'thumbnail';
-
-        imgSize = 'maxresdefault';
+        imgSize = 'mqdefault';
         img.src = `${thumbnailApi.defaults.baseURL}/${videoId}/${imgSize}.jpg`;
-
-        // verificar se a imagem recebida é a thumbnail de 404 e então substituir pela hq
-        /* img.onload = () => {
-            if(img.width === 120) {
-                imgSize = 'sddefault';
-            }
-            if(imgSize !== 'maxresdefault') {
-                img.src = `${thumbnailApi.defaults.baseURL}/${videoId}/${imgSize}.jpg`;
-                
-            }
-        } */
-
 
         return <img src={img.src} className={img.className} alt={alt}/>;
     }
 
     return(
-        <Spin spinning={loading}>
+        <Spin spinning={loading} indicator={<LoadingOutlined style={{fontSize: '48px'}}/>}>
             {
-            result && result.items.length > 0 ?
+            searchResults && searchResults.length > 0 ?
                 <Row justify='center' style={{marginTop: '24px'}}>
-                    <Col span={20}>
+                    <Col xs={20} sm={20} md={16}>
                         <Row align='top' justify='space-around' gutter={24}>
                             {
-                            result.items.map(element => {
+                            searchResults.map(element => {
                                 return(
-                                    <Col xs={24} sm={8} md={8} lg={6}>
+                                    <Col xs={24} sm={12} md={8} xl={6} className='content-card'>
                                         <Link to={`/video/${element.videoId}`}  style={{display: 'flex', flexDirection: 'column'}}>
                                             <div className={'thumbnail-container'}>
                                                 {displayThumb(element.videoId, element.title)}
                                             </div>
-                                            <Text strong>{element.title}</Text>
-                                            <Text>
+                                            <Title level={5}>{element.title}</Title>
+                                            <Text strong>
                                                 {element.channelTitle}
                                             </Text>
                                             <Text>
@@ -97,16 +115,26 @@ export const SearchResults = () => {
                             })
                             }
                         </Row>
-                        <Row>
-                            <Spin spinning={loadingNextPage}>
-                                <Row align='middle' justify='center'>
-                                    Carregando mais resultados...
-                                </Row>
-                            </Spin>
-                        </Row>
+                        {/* {searchResponse?.nextPageToken ?
+                            <Row id='loadMore'>
+                                <Spin spinning={loadingNextPage}>
+                                    <div style={{padding: '24px'}}>
+                                    </div>
+                                </Spin>
+                            </Row>
+                        : null} */}
+                        {searchResponse?.nextPageToken ?
+                            <Row justify="center">
+                                <Spin spinning={loadingNextPage}>
+                                    <Row justify="center" style={{padding: '24px'}}>
+                                        <Button onClick={() => handleNextPageSearch()}>Carregar mais</Button>
+                                    </Row>
+                                </Spin>
+                            </Row>
+                        : null }
                     </Col>
                 </Row>
-            : 
+            :
                 loading ? null : <ErrorMessage />
             }
         </Spin>

@@ -22,13 +22,30 @@
     }
 }
 
+.sb-animation, .sb-container {
+    transition: ease;
+}
+
 .sb-animation {
     animation-name: sb-keyframes,  add-shadow;
     animation-duration: 1s, 1s;
     animation-fill-mode: forwards, forwards;
-    transition: ease;
 }
 
 .sb-container {
    height: 100vh;
+}
+
+.sb-hide {
+    display: none!important;
+}
+
+@media screen and (min-width: 768px) {
+    .search-btn {
+        visibility: hidden!important;
+    }
+
+    .sb-hide {
+        display: block!important;
+    }
 }
